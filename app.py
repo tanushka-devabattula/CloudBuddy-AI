@@ -1,15 +1,10 @@
-
 import streamlit as st
+import os
 from openai import OpenAI
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    import os
-
-client = OpenAI(
-    base_url="https://openrouter.ai/api/v1",
     api_key=os.getenv("OPENROUTER_API_KEY")
-)
 )
 
 st.set_page_config(page_title="CloudBuddy AI", page_icon="☁️")
@@ -49,21 +44,18 @@ if st.button("Generate"):
             prompt = topic
 
         try:
-
             response = client.chat.completions.create(
                 model="openrouter/free",
                 messages=[
                     {
-                        "role":"user",
-                        "content":prompt
+                        "role": "user",
+                        "content": prompt
                     }
                 ]
             )
 
             st.success("Response Generated Successfully!")
-
             st.write(response.choices[0].message.content)
 
         except Exception as e:
-
             st.error(str(e))
